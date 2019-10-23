@@ -1,0 +1,50 @@
+CREATE DATABASE Escuela;
+
+USE Escuela;
+
+CREATE TABLE Domicilio (
+idDomicilio INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
+estado VARCHAR(30) NOT NULL,
+municipio VARCHAR(30) NOT NULL,
+colonia VARCHAR(30) NOT NULL,
+calle VARCHAR(30) NOT NULL,
+numero VARCHAR(30) NOT NULL
+);
+
+CREATE TABLE Persona(
+idPersona INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
+nombre VARCHAR(60) NOT NULL,
+apeidos VARCHAR(60) NOT NULL,
+axoNacimiento VARCHAR(4) NOT NULL,
+sexo VARCHAR(9) NOT NULL,
+idDomicilio INT NOT NULL,
+FOREIGN KEY (idDomicilio) REFERENCES Domicilio (idDomicilio) ON DELETE CASCADE
+);
+
+CREATE TABLE Docente(
+idDocente INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
+numeroCedula VARCHAR(8) NOT NULL,
+salarioDiario DECIMAL(2,2) NOT NULL,
+idPersona INT NOT NULL,
+FOREIGN KEY (idPersona) REFERENCES Persona (idPersona) ON DELETE CASCADE
+);
+
+CREATE TABLE Estudiante(
+idEstudiante INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
+matricula VARCHAR(20) NOT NULL,
+promedio DECIMAL(2,2) NOT NULL,
+idPersona INT NOT NULL,
+FOREIGN KEY (idPersona) REFERENCES Persona (idPersona) ON DELETE CASCADE
+);
+
+select * from docente d inner join persona p on d.idDocente = p.idPersona inner join domicilio dom on dom.idDomicilio = p.idDomicilio where d.idDocente = 1;
+select * from docente d inner join persona p on d.idDocente = p.idPersona inner join domicilio dom on dom.idDomicilio = p.idDomicilio ;
+
+delete from docente where idDocente = 1;
+
+insert into domicilio (estado, municipio, colonia, calle, numero) values ("Morelos", "Cuernavaca", "Centro", "Mirador", "123");
+insert into persona (nombre, apeidos, axoNacimiento, sexo, idDomicilio) values ("Juan", "Perez", "1999", "Masculino", 1);
+insert into docente (numeroCedula, salarioDiario, idPersona) values ("ABC123", 99.7, 1);
+select * from domicilio;
+select * from persona;
+select * from docente;
