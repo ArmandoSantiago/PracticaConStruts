@@ -16,6 +16,7 @@ public class PersonaDao {
     ResultSet rs = null;
 
 
+
     private String queryTodoPersona = "exec todoPersona";
 
     public List<PersonaBean> allPersona() {
